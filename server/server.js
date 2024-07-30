@@ -6,6 +6,11 @@ const PORT = 3000;
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  //console.log(path.resolve('/index.html'));
+  res.status(200).sendFile(path.resolve('index.html'));
+});
+
 //Catch all handler
 app.use((req, res) => {
   res.status(404).send('Not Found');
