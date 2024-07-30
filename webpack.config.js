@@ -10,8 +10,7 @@ module.exports = {
     },
     mode: 'development',
     plugins: [new HtmlWebpackPlugin({
-        template: './index.html',
-        inject: 'body',
+        template: './index.html'
     })],
     module:{
         rules: [
