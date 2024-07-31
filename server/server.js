@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.resolve('index.html'));
 });
 
-app.post('/upload', multerUpload.single('file'), fileController.uploadCheck, (req, res) => {
+app.post('/upload', multerUpload.single('file'), fileController.uploadCheck, dbController.write, (req, res) => {
   res.status(200).send('File Sucessfully Uploaded');
 });
 

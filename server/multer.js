@@ -5,7 +5,7 @@ const store = multer.diskStorage({
         cb(null, './storage/'); //specifies the target directory. null is for errors.
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname); //our filename and the date
+        cb(null, Date.now() + '-' + file.originalname); //our filename and the date
     }
 });
 const upload = multer({ storage: store });
