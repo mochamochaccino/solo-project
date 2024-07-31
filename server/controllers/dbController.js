@@ -65,7 +65,7 @@ dbController.deleteData = (req, res, next) => {
     const queryDelete = 'DELETE FROM public.files WHERE file_id = $1';
     db.query(queryDelete, parameters)
     .then(data => {
-        console.log(data);
+        //console.log(data);
         return next();
     })
     .catch(error => {

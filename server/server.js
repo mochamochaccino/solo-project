@@ -1,8 +1,6 @@
 const path = require('path');
 const express = require('express');
-const fileController = require('./controllers/fileController');
-const dbController = require('./controllers/dbController');
-const multerUpload = require('./multer');
+const favicon = require('serve-favicon');
 
 const fileRouter = require('./routers/fileRouter');
 const dbRouter = require('./routers/dbRouter');
@@ -12,6 +10,8 @@ const PORT = 3000;
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve('index.html'));
 });
+
+app.use(favicon(path.join(__dirname, './', 'favicon.ico')));
 
 app.use('/upload', fileRouter);
 app.use(express.json());

@@ -4,11 +4,10 @@ import Row from './Row.jsx';
 const Display = () => {
     const [list, setList] = useState([]);
 
-    const fetcher = (location, method, body) => {
+    const fetcher = (location, method) => {
         //console.log(location);
         fetch(location, {
             method: method,
-            body: body
         })
         .then(response => { //this then is needed since the promise is not finished yet
             //console.log(response);
@@ -26,8 +25,10 @@ const Display = () => {
     useEffect(() => { //useEffect is used to handle fetch requests that are not being handled by an independent handler
         fetcher('/database/get','GET');
     }, []);
+
     const storage = [];
     for(let i = 0; i < list.length; i++){
+        console.log(list);
         storage[i] = <div key = {i + 3030303}><Row list = {list[i]} fetcher = {fetcher} index = {i}/></div>
     }
     return(
