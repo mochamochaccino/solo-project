@@ -16,9 +16,15 @@ app.post('/upload', multerUpload.single('file'), fileController.uploadCheck, dbC
 
 app.use(express.json());
 
+app.get('/database', dbController.getData, (req, res) => {
+  res.status(200).json(res.locals.getData);
+});
+
 app.get('/test', dbController.write, (req, res) => {
   res.status(200);
 });
+
+
 
 //Catch all handler
 app.use((req, res) => {

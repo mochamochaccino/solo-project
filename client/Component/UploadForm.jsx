@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const UploadForm = () => { 
     const [file, setFile] = useState(); //creates state to store the file
+    const [status, setStatus] = useState('');
     
     const fileHandler = (input) => { //handles when the file is selected client side (browser react)
         //console.log(input);
@@ -20,11 +21,18 @@ const UploadForm = () => {
                 body: formData
             })
             .then(data => {
-                console.log(data);
-                return data;
+                if(data.ok){
+                    console.log("File successfully uploaded");
+                    setStatus('Successful');
+                }
+                else{
+                    console.log("File was not able to be uploaded successfully" + data.status);
+                    setStatus('Failed');
+                }
             })
             .catch(error => {
                 console.log('An error has occured during file submission: ' + error);
+                setStatus('Failed');
             });
         }
 
@@ -39,10 +47,16 @@ const UploadForm = () => {
     return(
         <div className = 'UploadForm'>
             <form onSubmit = {submitHandler}>
-                <h1>File Uploader</h1>
+                <h3>File Uploader</h3>
                 <input type = 'file' onChange = {fileHandler}/>
                 <button type="submit">Upload</button>
             </form>
+            {status === 'Successful' && (
+                <p>Upload Successful</p>
+            )}
+            {status === 'Failed' && (
+                <p>Upload Failed</p>
+            )}
         </div>
     );
 };
