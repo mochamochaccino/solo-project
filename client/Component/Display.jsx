@@ -4,16 +4,19 @@ import Row from './Row.jsx';
 const Display = () => {
     const [list, setList] = useState([]);
 
-    const fetcher = () => {
-        fetch('/database', {
-            method: 'GET'
+    const fetcher = (location, method, body) => {
+        //console.log(location);
+        fetch(location, {
+            method: method,
+            body: body
         })
         .then(response => { //this then is needed since the promise is not finished yet
+            //console.log(response);
             return response.json();
         })
         .then(data => {
-            //console.log(data.rows);
-            setList(data.rows);
+            //console.log(data);
+            setList(data);
         })
         .catch(error => {
             console.log('An error has occured getting the database: ' + error);
@@ -21,11 +24,11 @@ const Display = () => {
     }
 
     useEffect(() => { //useEffect is used to handle fetch requests that are not being handled by an independent handler
-        fetcher();
-    }, [list]);
+        fetcher('/database/get','GET');
+    }, []);
     const storage = [];
     for(let i = 0; i < list.length; i++){
-        storage[i] = <div key = {i + 3030303}><Row list = {list[i]} fetcher = {fetcher}/></div>
+        storage[i] = <div key = {i + 3030303}><Row list = {list[i]} fetcher = {fetcher} index = {i}/></div>
     }
     return(
         <div>

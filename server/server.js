@@ -3,32 +3,25 @@ const express = require('express');
 const fileController = require('./controllers/fileController');
 const dbController = require('./controllers/dbController');
 const multerUpload = require('./multer');
+
+const fileRouter = require('./routers/fileRouter');
+const dbRouter = require('./routers/dbRouter');
 const app = express();
 const PORT = 3000;
 
 app.get('/', (req, res) => {
-  res.status(200).sendFile(path.resolve('index.html'));
+  return res.status(200).sendFile(path.resolve('index.html'));
 });
 
-app.post('/upload', multerUpload.single('file'), fileController.uploadCheck, dbController.write, (req, res) => {
-  res.status(200).send('File Sucessfully Uploaded');
-});
-
+app.use('/upload', fileRouter);
 app.use(express.json());
-
-app.get('/database', dbController.getData, (req, res) => {
-  res.status(200).json(res.locals.getData);
-});
-
-app.get('/test', dbController.write, (req, res) => {
-  res.status(200);
-});
+app.use('/database', dbRouter);
 
 
 
 //Catch all handler
 app.use((req, res) => {
-  res.status(404).send('Not Found');
+  return res.status(404).send('404 Not Found');
 });
 
 //Defaulterror handler
