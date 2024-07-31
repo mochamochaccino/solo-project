@@ -15,7 +15,6 @@ const UploadForm = () => {
         if(file){
             const formData = new FormData(); //form data is easily parsed by the server
             formData.append('file', file); //adds the file
-            formData.append('fileName', file.name); //adds the file name
             fetch('/upload', {
                 method: 'POST',
                 body: formData

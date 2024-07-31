@@ -1,21 +1,22 @@
 const path = require('path');
 const express = require('express');
 const fileController = require('./controllers/fileController');
+const dbController = require('./controllers/dbController');
 const multerUpload = require('./multer');
-// const multer = require('multer'); 
-// const upload = multer({ dest:'./storage/' });
 const app = express();
 const PORT = 3000;
-
-
-
-//app.use(express.json());
 
 app.get('/', (req, res) => {
   res.status(200).sendFile(path.resolve('index.html'));
 });
 
-app.post('/upload', multerUpload.single('file'), fileController.upload, (req, res) => {
+app.post('/upload', multerUpload.single('file'), fileController.uploadCheck, (req, res) => {
+  res.status(200).send('File Sucessfully Uploaded');
+});
+
+app.use(express.json());
+
+app.get('/test', dbController.write, (req, res) => {
   res.status(200);
 });
 
