@@ -24,12 +24,30 @@ fileController.delete = (req, res, next) => {
     }
     catch (err) {
         const error = {
-            log: 'fileController.delete: deletion error',
+            log: 'fileController.delete deletion error: ' + err,
             status: 500,
-            message: { err: 'An error has occured ' + err }
+            message: { err: 'An error has occured ' }
         };
         next(error);
     }
 };
+
+fileController.download = (req, res, next) => {
+    const source = path.resolve(res.locals.path.file_path);
+    console.log('download start');
+    res.download(source, (err) => {
+        if(err){
+            const error = {
+                log: 'fileController.download download error: ' + err,
+                status: 500,
+                message: { err: 'An error has occured ' }
+            }
+            next(err);
+        }
+        else{
+            next();
+        }
+    });
+}
 
 module.exports = fileController;

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Row from './Row.jsx';
 
-const Display = () => {
+const Display = (props) => {
     const [list, setList] = useState([]);
 
-    const fetcher = (location, method) => {
-        //console.log(location);
-        fetch(location, {
-            method: method,
+    useEffect(() => {
+        fetch('/database/get', {
+            method: 'GET',
         })
         .then(response => { //this then is needed since the promise is not finished yet
             //console.log(response);
@@ -20,16 +19,12 @@ const Display = () => {
         .catch(error => {
             console.log('An error has occured getting the database: ' + error);
         });
-    }
-
-    useEffect(() => { //useEffect is used to handle fetch requests that are not being handled by an independent handler
-        fetcher('/database/get','GET');
-    }, []);
+    }, [props.modifier.modify]);
 
     const storage = [];
     for(let i = 0; i < list.length; i++){
-        console.log(list);
-        storage[i] = <div key = {i + 3030303}><Row list = {list[i]} fetcher = {fetcher} index = {i}/></div>
+        //console.log(list);
+        storage[i] = <div key = {i + 3030303}><Row list = {list[i]} index = {i} modifier = {props.modifier} /></div>
     }
     return(
         <div>

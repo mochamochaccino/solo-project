@@ -13,4 +13,8 @@ router.delete('/delete', dbController.getPath, fileController.delete, dbControll
     return res.status(200).send('Deletion Complete');
 })
 
+router.get('/download', dbController.getPath, fileController.download, (req, res) => {
+  return res.status(200);
+});
+
 module.exports = router;

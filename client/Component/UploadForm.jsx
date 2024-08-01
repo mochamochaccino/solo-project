@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const UploadForm = () => { 
+const UploadForm = (props) => { 
     const [file, setFile] = useState(); //creates state to store the file
     const [status, setStatus] = useState('');
     
@@ -24,6 +24,7 @@ const UploadForm = () => {
                 if(data.ok){
                     console.log("File successfully uploaded");
                     setStatus('Successful');
+                    props.modifier.setModify(Math.floor(Math.random() * 10000) + 1);
                 }
                 else{
                     console.log("File was not able to be uploaded successfully" + data.status);
