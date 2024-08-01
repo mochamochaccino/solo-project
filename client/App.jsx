@@ -1,6 +1,5 @@
 import React from 'react';
 import MainContainer from './Container/MainContainer.jsx';
-import Login from './Container/Login.jsx';
 import { Routes, Route } from "react-router-dom"
 const App = () => {
     return(
